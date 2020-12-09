@@ -53,7 +53,7 @@ while fresult != True:
     fresult = finderror(fcounter, x, y)
     fcounter += 1
     if fcounter > 25: 
-        fcounter = 2 
+        fcounter = 1
         x += 1
         y += 1
     
