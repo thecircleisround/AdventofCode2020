@@ -8,7 +8,7 @@ f.insert(0, 0)
 
 
 def moe(func):
-    tried = defaultdict(int)
+    tried = {}
     def helper(x):
         if x not in tried:
             tried[x] = func(x)
