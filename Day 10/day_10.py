@@ -14,7 +14,6 @@ def moe(func):
         if x not in tried:
             tried[x] = func(x)
         return tried[x]
-
     return helper
 
 
