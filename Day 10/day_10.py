@@ -9,7 +9,6 @@ f.insert(0, 0)
 
 def moe(func):
     tried = defaultdict(int)
-
     def helper(x):
         if x not in tried:
             tried[x] = func(x)
@@ -20,8 +19,7 @@ def moe(func):
 @moe
 def possibilities(item):
     values = []
-    x = list(z for z in list(item - y for y in range(1, 4)) if z in f)
-    
+    x = list(z for z in list(item - y for y in range(1, 4)) if z in f) 
     if item == 0:
         return 1
     #Line comprehension below causes "max recursion depth" error
