@@ -18,7 +18,7 @@ def applyrules(limit=4):
         for i in coordscop:
             if limit == 4:
                 adjseats = list(
-                    tuple(map(sum, zip(i, location))) for location in mods)
+                    tuple(map(sum, zip(i, mod))) for mod in mods)
                 occupiedseats = len([
                     coordscop[value] for value in adjseats
                     if value in coordscop if coordscop[value] == "#"
@@ -40,7 +40,7 @@ def applyrules(limit=4):
 
 
 def part2(coordscop, i):
-    adjseats = list(tuple(map(sum, zip(i, location))) for location in mods)
+    adjseats = list(tuple(map(sum, zip(i, mod))) for mod in mods)
     occupiedseats = []
     for i in adjseats:
         index = adjseats.index(i)
