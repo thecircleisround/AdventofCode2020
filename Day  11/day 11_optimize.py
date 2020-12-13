@@ -42,12 +42,14 @@ def applyrules(limit=4):
 def findseats(coords, coord, limit):
     adjseats = list(tuple(map(sum, zip(coord, mod))) for mod in mods)
     occupiedseats = []
+    
+    if limit == 4: 
+            return adjseats
+            
     for i in adjseats:
         index = adjseats.index(i)
         x, y = i
         found = False
-        if limit == 4: 
-            return adjseats
         while found == False:
             if i not in coords:
                 found = True
