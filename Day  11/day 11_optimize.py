@@ -16,21 +16,21 @@ def applyrules(limit=4):
     coordscompare = coords.copy()
     nearestseats = {}
     while True:
-        for i in coordscompare:
-            if i not in nearestseats: 
-                adjseats = findseats(coordscop,i)
-                nearestseats[i] = adjseats
+        for coord in coordscompare:
+            if coord not in nearestseats: 
+                adjseats = findseats(coordscop,coord,limit)
+                nearestseats[coord] = adjseats
             else: 
-                adjseats = nearestseats[i]
+                adjseats = nearestseats[coord]
             occupiedseats = len([
                 coordscop[value] for value in adjseats
                 if value in coordscop if coordscop[value] == "#"])
-            if coordscompare[i] == ".":
+            if coordscompare[coord] == ".":
                 pass
-            elif coordscompare[i] == "L" and occupiedseats == 0:
-                coordscompare[i] = "#"
-            elif coordscompare[i] == "#" and occupiedseats >= limit:
-                coordscompare[i] = "L"
+            elif coordscompare[coord] == "L" and occupiedseats == 0:
+                coordscompare[coord] = "#"
+            elif coordscompare[coord] == "#" and occupiedseats >= limit:
+                coordscompare[coord] = "L"
         if coordscompare == coordscop:
             totaloccupiedseats = sum(x == "#" for x in coordscop.values())
             print(f'There are {totaloccupiedseats} total occupied seats')
@@ -39,25 +39,26 @@ def applyrules(limit=4):
             coordscop = coordscompare.copy()
 
 
-def findseats(coordscop, i):
-    adjseats = list(tuple(map(sum, zip(i, mod))) for mod in mods)
+def findseats(coords, coord, limit):
+    adjseats = list(tuple(map(sum, zip(coord, mod))) for mod in mods)
     occupiedseats = []
     for i in adjseats:
         index = adjseats.index(i)
-        factor = 1
+        x, y = i
         found = False
+        if limit == 4: 
+            return adjseats
         while found == False:
-            x, y = i
-            if i not in coordscop:
+            if i not in coords:
                 found = True
-            elif coordscop[i] == ".":
+            elif coords[i] == ".":
                 x += mods[index][0]
                 y += mods[index][1]
                 i = x, y
-            elif coordscop[i] == "L":
+            elif coords[i] == "L" or coords[i] == "#":
+                adjseats[index] = i
                 found = True
-            elif coordscop[i] == "#":
-                found = True
+   # print(adjseats)
     return adjseats
 
 
@@ -77,3 +78,4 @@ applyrules(5)
 
 timer = "{:.2f}".format(time() - starttime)
 print(f'{timer}s')
+
